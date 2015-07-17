@@ -16,6 +16,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".RecognizerActivity"
+            android:label="@string/title_activity_recognizer"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="pl.polsl.wkiro.facerecognizer.MainActivity" />
+        </activity>
+        <activity
+            android:name=".TrainerActivity"
+            android:label="@string/title_activity_trainer"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="pl.polsl.wkiro.facerecognizer.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

@@ -1,9 +1,11 @@
 package pl.polsl.wkiro.facerecognizer;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -12,14 +14,6 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
     }
 
     @Override
@@ -35,5 +29,21 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void startRecognizerClick(View view) {
+        Intent intent = new Intent(this, RecognizerActivity.class);
+        startActivity(intent);
+    }
+
+    public void openTrainerClick(View view) {
+        Intent intent = new Intent(this, TrainerActivity.class);
+        startActivity(intent);
+    }
+
+    public void aboutClick(View view) {
+        Toast.makeText(getApplicationContext(),
+                "FaceRecognizer\nApplication developed for Computer Vision and Image Recognition subject at Silesian University of Technology\n2015",
+                Toast.LENGTH_LONG).show();
     }
 }
