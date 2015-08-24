@@ -2,6 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="pl.polsl.wkiro.facerecognizer" >
 
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -32,10 +38,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="pl.polsl.wkiro.facerecognizer.MainActivity" />
         </activity>
+        <activity
+            android:name=".TrainerPictureActivity"
+            android:label="@string/title_activity_trainer_photo"
+            android:parentActivityName=".TrainerActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="pl.polsl.wkiro.facerecognizer.TrainerActivity" />
+        </activity>
     </application>
-
-    <uses-permission android:name="android.permission.CAMERA"/>
-
-    <uses-feature android:name="android.hardware.camera" android:required="true"/>
 
 </manifest>

@@ -1,4 +1,4 @@
-package pl.polsl.wkiro.facerecognizer;
+package pl.polsl.wkiro.facerecognizer.camera;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -19,6 +19,7 @@ public abstract class CameraPreviewActivity extends Activity implements CameraBr
 
     protected Mat frameRgba;
     protected Mat frameGray;
+    protected Mat frameProcessed;
 
     protected abstract void loaderCallbackExtra();
 
@@ -93,9 +94,10 @@ public abstract class CameraPreviewActivity extends Activity implements CameraBr
     public Mat onCameraFrame(CameraBridgeViewBase.CvCameraViewFrame inputFrame) {
         frameRgba = inputFrame.rgba();
         frameGray = inputFrame.gray();
+        frameProcessed = frameRgba.clone();
 
         onCameraFrameExtra();
 
-        return frameRgba;
+        return frameProcessed;
     }
 }

@@ -2,9 +2,9 @@ package pl.polsl.wkiro.facerecognizer;
 
 import java.util.List;
 
+import pl.polsl.wkiro.facerecognizer.camera.CameraPreviewActivity;
 import pl.polsl.wkiro.facerecognizer.model.Face;
 import pl.polsl.wkiro.facerecognizer.model.FaceDetector;
-
 
 public class RecognizerActivity extends CameraPreviewActivity {
 
