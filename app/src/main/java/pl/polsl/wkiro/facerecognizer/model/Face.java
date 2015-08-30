@@ -34,4 +34,8 @@ public class Face extends Rect {
     public Scalar getAssignedColor() {
         return assignedColor;
     }
+
+    public Mat extractRoi(Mat frame) {
+        return frame.submat(y, y + height, x, x + width);
+    }
 }

@@ -39,6 +39,7 @@ public class TrainerPictureActivity extends Activity {
         public void onManagerConnected(int status) {
             switch (status) {
                 case LoaderCallbackInterface.SUCCESS: {
+                    System.loadLibrary("face_classifier_native");
                     faceDetector = new FaceDetector(TrainerPictureActivity.this);
                     PictureHolder ph = PictureHolder.getInstance();
 
