@@ -1,7 +1,7 @@
 package pl.polsl.wkiro.facerecognizer.camera;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.WindowManager;
 
 import org.opencv.android.BaseLoaderCallback;
@@ -11,7 +11,7 @@ import org.opencv.android.OpenCVLoader;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 
-public abstract class CameraPreviewActivity extends Activity implements CameraBridgeViewBase.CvCameraViewListener2 {
+public abstract class CameraPreviewActivity extends AppCompatActivity implements CameraBridgeViewBase.CvCameraViewListener2 {
 
     final protected int layoutResId;
     final protected int cameraViewResId;

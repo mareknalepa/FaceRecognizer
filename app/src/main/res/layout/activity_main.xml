@@ -40,14 +40,6 @@
             android:id="@+id/trainerButton"
             android:onClick="openTrainerClick"
             android:layout_weight="0.05" />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/action_about"
-            android:id="@+id/aboutButton"
-            android:onClick="aboutClick"
-            android:layout_weight="0.05" />
     </LinearLayout>
 
 </RelativeLayout>

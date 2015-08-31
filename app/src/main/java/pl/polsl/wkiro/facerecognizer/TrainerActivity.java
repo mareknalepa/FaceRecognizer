@@ -2,8 +2,9 @@ package pl.polsl.wkiro.facerecognizer;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 
 import org.opencv.core.Scalar;
 
@@ -17,7 +18,9 @@ import pl.polsl.wkiro.facerecognizer.model.PictureHolder;
 public class TrainerActivity extends CameraPreviewActivity {
 
     private FaceDetector faceDetector;
-    private Button trainButton;
+
+    private MenuItem menuShowClassifierStatus;
+    private MenuItem menuTrainClassifier;
 
     public TrainerActivity() {
         super(R.layout.activity_trainer, R.id.cameraPreview);
@@ -26,7 +29,6 @@ public class TrainerActivity extends CameraPreviewActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        trainButton = (Button) findViewById(R.id.trainButton);
     }
 
     @Override
@@ -42,7 +44,24 @@ public class TrainerActivity extends CameraPreviewActivity {
         }
     }
 
-    public void trainClick(View view) {
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        menuShowClassifierStatus = menu.add("Show classifier status");
+        menuTrainClassifier = menu.add("Train classifier");
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item == menuShowClassifierStatus) {
+
+        } else if (item == menuTrainClassifier) {
+
+        }
+        return true;
+    }
+
+    public void processPictureClick(View view) {
         if (frameRgba != null && frameGray != null) {
             Intent intent = new Intent(this, TrainerPictureActivity.class);
 

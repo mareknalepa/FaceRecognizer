@@ -2,13 +2,16 @@ package pl.polsl.wkiro.facerecognizer;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends AppCompatActivity {
+
+    private MenuItem menuAbout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,18 +20,17 @@ public class MainActivity extends ActionBarActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        menuAbout = menu.add("About application");
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (item == menuAbout) {
+            menuAbout();
         }
-
-        return super.onOptionsItemSelected(item);
+        return true;
     }
 
     public void startRecognizerClick(View view) {
@@ -41,7 +43,7 @@ public class MainActivity extends ActionBarActivity {
         startActivity(intent);
     }
 
-    public void aboutClick(View view) {
+    public void menuAbout() {
         Toast.makeText(getApplicationContext(),
                 "FaceRecognizer\nApplication developed for Computer Vision and Image Recognition subject at Silesian University of Technology\n2015",
                 Toast.LENGTH_LONG).show();

@@ -1,8 +1,8 @@
 package pl.polsl.wkiro.facerecognizer;
 
-import android.app.Activity;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -22,7 +22,7 @@ import pl.polsl.wkiro.facerecognizer.model.Face;
 import pl.polsl.wkiro.facerecognizer.model.FaceDetector;
 import pl.polsl.wkiro.facerecognizer.model.PictureHolder;
 
-public class TrainerPictureActivity extends Activity {
+public class TrainerPictureActivity extends AppCompatActivity {
 
     private Mat frameRgba;
     private Mat frameGray;
@@ -84,7 +84,7 @@ public class TrainerPictureActivity extends Activity {
         OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_2_4_11, this, loaderCallback);
     }
 
-    public void trainRecognizerClick(View view) {
+    public void addToDatabaseClick(View view) {
 
     }
 
