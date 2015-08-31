@@ -4,6 +4,8 @@ import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
+import org.opencv.core.Size;
+import org.opencv.imgproc.Imgproc;
 
 public class Face extends Rect {
 
@@ -36,6 +38,8 @@ public class Face extends Rect {
     }
 
     public Mat extractRoi(Mat frame) {
-        return frame.submat(y, y + height, x, x + width);
+        Mat extracted = new Mat();
+        Imgproc.resize(frame.submat(y, y + height, x, x + width), extracted, new Size(256, 256));
+        return extracted;
     }
 }

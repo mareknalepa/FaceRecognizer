@@ -39,8 +39,8 @@
                 android:value="pl.polsl.wkiro.facerecognizer.MainActivity" />
         </activity>
         <activity
-            android:name=".TrainerPictureActivity"
-            android:label="@string/title_activity_trainer_photo"
+            android:name=".TrainerDatabaseActivity"
+            android:label="@string/title_activity_trainer_database"
             android:parentActivityName=".TrainerActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

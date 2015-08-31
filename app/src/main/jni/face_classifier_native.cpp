@@ -1,3 +1,4 @@
+#include "face_classifier_native.h"
 #include <opencv2/core/core.hpp>
 
 void Java_pl_polsl_wkiro_facerecognizer_classifier_FaceClassifier_load

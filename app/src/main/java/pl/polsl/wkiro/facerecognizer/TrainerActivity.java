@@ -63,7 +63,7 @@ public class TrainerActivity extends CameraPreviewActivity {
 
     public void processPictureClick(View view) {
         if (frameRgba != null && frameGray != null) {
-            Intent intent = new Intent(this, TrainerPictureActivity.class);
+            Intent intent = new Intent(this, TrainerDatabaseActivity.class);
 
             PictureHolder ph = PictureHolder.getInstance();
             ph.setFrameRgba(frameRgba);
