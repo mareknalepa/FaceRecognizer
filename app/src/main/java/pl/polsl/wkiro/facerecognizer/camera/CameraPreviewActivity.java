@@ -8,6 +8,7 @@ import org.opencv.android.BaseLoaderCallback;
 import org.opencv.android.CameraBridgeViewBase;
 import org.opencv.android.LoaderCallbackInterface;
 import org.opencv.android.OpenCVLoader;
+import org.opencv.core.Core;
 import org.opencv.core.Mat;
 
 public abstract class CameraPreviewActivity extends Activity implements CameraBridgeViewBase.CvCameraViewListener2 {
@@ -93,7 +94,11 @@ public abstract class CameraPreviewActivity extends Activity implements CameraBr
     @Override
     public Mat onCameraFrame(CameraBridgeViewBase.CvCameraViewFrame inputFrame) {
         frameRgba = inputFrame.rgba();
+        Core.flip(frameRgba, frameRgba, -1);
+
         frameGray = inputFrame.gray();
+        Core.flip(frameGray, frameGray, -1);
+
         frameProcessed = frameRgba.clone();
 
         onCameraFrameExtra();
