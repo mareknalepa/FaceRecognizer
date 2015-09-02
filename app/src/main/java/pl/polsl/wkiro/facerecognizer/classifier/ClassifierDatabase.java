@@ -84,6 +84,10 @@ public class ClassifierDatabase {
         }
     }
 
+    public int filesNumber() {
+        return context.fileList().length;
+    }
+
     private Mat readImageFile(String path) {
         Mat m = new Mat(IMAGE_HEIGHT, IMAGE_WIDTH, CvType.CV_8UC1);
         try {
