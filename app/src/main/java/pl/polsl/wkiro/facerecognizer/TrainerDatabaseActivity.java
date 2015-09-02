@@ -19,6 +19,7 @@ import org.opencv.core.Mat;
 import java.util.ArrayList;
 import java.util.List;
 
+import pl.polsl.wkiro.facerecognizer.classifier.ClassifierDatabase;
 import pl.polsl.wkiro.facerecognizer.model.Face;
 import pl.polsl.wkiro.facerecognizer.model.FaceDetector;
 import pl.polsl.wkiro.facerecognizer.model.PictureHolder;
@@ -33,7 +34,7 @@ public class TrainerDatabaseActivity extends AppCompatActivity {
     private List<EditText> editTexts;
 
     private FaceDetector faceDetector;
-    private int sequentialNumber = 1;
+    private ClassifierDatabase classifierDatabase;
 
     private BaseLoaderCallback loaderCallback = new BaseLoaderCallback(this) {
         @Override
@@ -63,6 +64,7 @@ public class TrainerDatabaseActivity extends AppCompatActivity {
         facesRgba = new ArrayList<>();
         facesGray = new ArrayList<>();
         editTexts = new ArrayList<>();
+        classifierDatabase = new ClassifierDatabase(this);
     }
 
     @Override
@@ -82,11 +84,16 @@ public class TrainerDatabaseActivity extends AppCompatActivity {
             Toast.makeText(this, "You have to fill in all fields.\nOnly letters are acceptable.", Toast.LENGTH_SHORT).show();
             return;
         }
+        for (int i = 0; i < editTexts.size(); ++i) {
+            String label = editTexts.get(i).getText().toString();
+            classifierDatabase.add(label, facesGray.get(i));
+        }
+        finish();
     }
 
     private void createFacesForm() {
         TableLayout tl = (TableLayout) findViewById(R.id.facesTable);
-        sequentialNumber = 1;
+        int sequentialNumber = 1;
         for (Face face : faces) {
             Mat tempFaceRoi = face.extractRoi(frameGray);
             facesGray.add(tempFaceRoi);
@@ -109,6 +116,7 @@ public class TrainerDatabaseActivity extends AppCompatActivity {
             EditText et = new EditText(this);
             et.setId(20 + sequentialNumber);
             et.setEms(10);
+            et.setMaxLines(1);
             editTexts.add(et);
             tr.addView(et);
 
