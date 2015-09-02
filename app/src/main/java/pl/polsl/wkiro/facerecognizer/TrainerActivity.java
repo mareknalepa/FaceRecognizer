@@ -22,6 +22,8 @@ public class TrainerActivity extends CameraPreviewActivity {
     private MenuItem menuShowClassifierStatus;
     private MenuItem menuTrainClassifier;
 
+    private List<Face> faces;
+
     public TrainerActivity() {
         super(R.layout.activity_trainer, R.id.cameraPreview);
     }
@@ -38,7 +40,7 @@ public class TrainerActivity extends CameraPreviewActivity {
 
     @Override
     protected void onCameraFrameExtra() {
-        List<Face> faces = faceDetector.detectFaces(frameGray);
+        faces = faceDetector.detectFaces(frameGray);
         for (Face face : faces) {
             face.drawOutline(frameProcessed, new Scalar(0, 255, 0, 255), 3);
         }
@@ -62,7 +64,7 @@ public class TrainerActivity extends CameraPreviewActivity {
     }
 
     public void processPictureClick(View view) {
-        if (frameRgba != null && frameGray != null) {
+        if (frameRgba != null && frameGray != null && !faces.isEmpty()) {
             Intent intent = new Intent(this, TrainerDatabaseActivity.class);
 
             PictureHolder ph = PictureHolder.getInstance();

@@ -3,6 +3,8 @@ package pl.polsl.wkiro.facerecognizer;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -58,6 +60,20 @@ public class TrainerDatabaseActivity extends AppCompatActivity {
                 break;
             }
         }
+    };
+
+    private final InputFilter[] filters = new InputFilter[] {
+            new InputFilter() {
+                @Override
+                public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+                    if (source.equals("")) {
+                        return source;
+                    } else if (source.toString().matches("[a-zA-Z ]+")) {
+                        return source;
+                    }
+                    return "";
+                }
+            }
     };
 
     public TrainerDatabaseActivity() {
@@ -117,6 +133,7 @@ public class TrainerDatabaseActivity extends AppCompatActivity {
             et.setId(20 + sequentialNumber);
             et.setEms(10);
             et.setMaxLines(1);
+            et.setFilters(filters);
             editTexts.add(et);
             tr.addView(et);
 
@@ -131,7 +148,7 @@ public class TrainerDatabaseActivity extends AppCompatActivity {
             if (et.getText().toString().equals("")) {
                 return false;
             }
-            if (!et.getText().toString().matches("[a-zA-Z]+")) {
+            if (!et.getText().toString().matches("[a-zA-Z ]+")) {
                 return false;
             }
         }
