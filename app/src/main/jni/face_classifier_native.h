@@ -9,27 +9,27 @@ extern "C" {
 #endif
 /*
  * Class:     pl_polsl_wkiro_facerecognizer_classifier_FaceClassifier
+ * Method:    init
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_pl_polsl_wkiro_facerecognizer_classifier_FaceClassifier_init
+(JNIEnv *, jclass);
+
+/*
+ * Class:     pl_polsl_wkiro_facerecognizer_classifier_FaceClassifier
  * Method:    load
  * Signature: (Ljava/lang/String;)V
  */
 JNIEXPORT void JNICALL Java_pl_polsl_wkiro_facerecognizer_classifier_FaceClassifier_load
-  (JNIEnv *, jclass, jstring);
-
-/*
- * Class:     pl_polsl_wkiro_facerecognizer_classifier_FaceClassifier
- * Method:    save
- * Signature: (Ljava/lang/String;)V
- */
-JNIEXPORT void JNICALL Java_pl_polsl_wkiro_facerecognizer_classifier_FaceClassifier_save
-  (JNIEnv *, jclass, jstring);
+(JNIEnv *, jclass, jstring);
 
 /*
  * Class:     pl_polsl_wkiro_facerecognizer_classifier_FaceClassifier
  * Method:    train
- * Signature: (JI)V
+ * Signature: ([J[ILjava/lang/String;)V
  */
 JNIEXPORT void JNICALL Java_pl_polsl_wkiro_facerecognizer_classifier_FaceClassifier_train
-  (JNIEnv *, jclass, jlong, jint);
+(JNIEnv *, jclass, jlongArray, jintArray, jstring);
 
 /*
  * Class:     pl_polsl_wkiro_facerecognizer_classifier_FaceClassifier
@@ -37,7 +37,7 @@ JNIEXPORT void JNICALL Java_pl_polsl_wkiro_facerecognizer_classifier_FaceClassif
  * Signature: (J)I
  */
 JNIEXPORT jint JNICALL Java_pl_polsl_wkiro_facerecognizer_classifier_FaceClassifier_predict
-  (JNIEnv *, jclass, jlong);
+        (JNIEnv *, jclass, jlong);
 
 #ifdef __cplusplus
 }

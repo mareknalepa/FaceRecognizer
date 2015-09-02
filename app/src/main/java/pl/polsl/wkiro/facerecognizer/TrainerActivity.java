@@ -15,6 +15,7 @@ import java.util.List;
 
 import pl.polsl.wkiro.facerecognizer.camera.CameraPreviewActivity;
 import pl.polsl.wkiro.facerecognizer.classifier.ClassifierDatabase;
+import pl.polsl.wkiro.facerecognizer.classifier.FaceClassifier;
 import pl.polsl.wkiro.facerecognizer.model.Face;
 import pl.polsl.wkiro.facerecognizer.model.FaceDetector;
 import pl.polsl.wkiro.facerecognizer.model.PictureHolder;
@@ -86,14 +87,16 @@ public class TrainerActivity extends CameraPreviewActivity {
     }
 
     private void showClassifierStatus() {
-        int dbElements = classifierDatabase.filesNumber();
+        classifierDatabase.load();
+        int examplesNumber = classifierDatabase.examplesNumber();
+        int classesNumber = classifierDatabase.classesNumber();
         String text;
-        if (dbElements == 0) {
-            text = "Classifier database is empty.";
-        } else if (dbElements == 1) {
+        if (classifierDatabase.isTrained()) {
             text = "Classifier already trained.";
+        } else if (examplesNumber == 0) {
+            text = "Classifier database is empty.";
         } else {
-            text = "Classifier ready to train with " + (dbElements - 1) + " examples.";
+            text = "Classifier ready to train with " + examplesNumber + " examples representing " + classesNumber + " classes.";
         }
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
     }
@@ -115,6 +118,16 @@ public class TrainerActivity extends CameraPreviewActivity {
     }
 
     private void trainClassifier() {
-
+        classifierDatabase.load();
+        if (classifierDatabase.examplesNumber() < 2) {
+            Toast.makeText(this, "Too few examples to train classifier!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (classifierDatabase.classesNumber() < 2) {
+            Toast.makeText(this, "At least 2 classes are required to train classifier!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        FaceClassifier faceClassifier = new FaceClassifier(this);
+        faceClassifier.trainClassifier(classifierDatabase);
     }
 }

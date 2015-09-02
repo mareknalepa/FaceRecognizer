@@ -15,7 +15,9 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ClassifierDatabase {
 
@@ -33,6 +35,8 @@ public class ClassifierDatabase {
     }
 
     public void load() {
+        labels.clear();
+        images.clear();
         FileInputStream fis;
         try {
             fis = context.openFileInput("faces_list");
@@ -82,10 +86,47 @@ public class ClassifierDatabase {
         for (String path : files) {
             context.deleteFile(path);
         }
+        load();
     }
 
-    public int filesNumber() {
-        return context.fileList().length;
+    public void deleteExamples() {
+        String[] files = context.fileList();
+        for (String path : files) {
+            if (!path.equals("face_recognizer_model")) {
+                context.deleteFile(path);
+            }
+        }
+        load();
+    }
+
+    public int examplesNumber() {
+        return images.size();
+    }
+
+    public int classesNumber() {
+        Set<String> uniqueLabels = new HashSet<>();
+        for (String label : labels) {
+            uniqueLabels.add(label);
+        }
+        return uniqueLabels.size();
+    }
+
+    public boolean isTrained() {
+        String[] files = context.fileList();
+        for (String path : files) {
+            if (path.equals("face_recognizer_model")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public List<String> getLabels() {
+        return labels;
+    }
+
+    public List<Mat> getImages() {
+        return images;
     }
 
     private Mat readImageFile(String path) {
