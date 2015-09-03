@@ -3,9 +3,13 @@ Simple Android application for recognizing humans' faces. Application is develop
 
 ## Technical details
 Development requirements:
+
 1.  Android Studio 1.3.x with Gradle 2.5
+
 2.  Android NDK (at least r10e)
+
 3.  OpenCV4Android SDK 2.4.11
+
 
 To build application it is necessary to adjust some paths in configuration files:
 
