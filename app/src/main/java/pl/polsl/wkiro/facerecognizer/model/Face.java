@@ -2,6 +2,7 @@ package pl.polsl.wkiro.facerecognizer.model;
 
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
+import org.opencv.core.Point;
 import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
 import org.opencv.core.Size;
@@ -31,6 +32,10 @@ public class Face extends Rect {
 
     public void drawColorOutline(Mat frame, int thickness) {
         drawOutline(frame, assignedColor, thickness);
+    }
+
+    public void drawLabel(Mat frame, String label, Scalar color) {
+        Core.putText(frame, label, new Point(x, y - 10), Core.FONT_HERSHEY_TRIPLEX, 1.2, color, 2, Core.LINE_AA, false);
     }
 
     public Scalar getAssignedColor() {

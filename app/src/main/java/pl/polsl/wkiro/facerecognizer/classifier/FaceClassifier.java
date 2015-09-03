@@ -18,11 +18,14 @@ public class FaceClassifier {
     private Context context;
     private String modelPath;
     private Map<Integer, String> labelsMap;
+    private boolean classifierLoaded;
 
     public FaceClassifier(Context c) {
+        System.loadLibrary("face_classifier_native");
         context = c;
         modelPath = context.getFilesDir() + File.separator + ClassifierDatabase.MODEL_FILE;
         labelsMap = new HashMap<>();
+        classifierLoaded = false;
         init();
     }
 
@@ -45,20 +48,25 @@ public class FaceClassifier {
         train(imagesAddrArray, numericLabels, modelPath);
         storeLabelsMap(labelMap);
         classifierDatabase.deleteExamples();
+        classifierLoaded = true;
     }
 
     public void loadClassifier() {
-        loadLabelsMap();
-        load(modelPath);
+        if (fileExists(ClassifierDatabase.MODEL_FILE) && fileExists(ClassifierDatabase.LABELS_FILE)) {
+            loadLabelsMap();
+            load(modelPath);
+            classifierLoaded = true;
+        }
     }
 
     public String recognizeFace(Mat faceFrame) {
-        int predicted = predict(faceFrame.getNativeObjAddr());
-        if (labelsMap.containsKey(predicted)) {
-            return labelsMap.get(predicted);
-        } else {
-            return "Unknown";
+        if (classifierLoaded) {
+            int predicted = predict(faceFrame.getNativeObjAddr());
+            if (labelsMap.containsKey(predicted)) {
+                return labelsMap.get(predicted);
+            }
         }
+        return "Unknown";
     }
 
     private Map<String, Integer> prepareLabels(List<String> labelsList) {
@@ -115,6 +123,12 @@ public class FaceClassifier {
         } catch (java.io.IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private boolean fileExists(String path) {
+        File dir = context.getFilesDir();
+        File file = new File(dir, path);
+        return file.exists();
     }
 
     private static native void init();

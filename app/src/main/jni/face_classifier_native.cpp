@@ -59,5 +59,5 @@ JNIEXPORT jint JNICALL Java_pl_polsl_wkiro_facerecognizer_classifier_FaceClassif
 (JNIEnv *env, jclass obj, jlong image)
 {
     Mat& image_mat = *(Mat*) image;
-    return (jint) classifier->predict(image);
+    return (jint) classifier->predict(image_mat);
 }
