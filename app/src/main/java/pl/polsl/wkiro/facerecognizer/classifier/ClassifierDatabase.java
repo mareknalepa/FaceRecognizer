@@ -6,6 +6,7 @@ import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -137,16 +138,13 @@ public class ClassifierDatabase {
     private Mat readImageFile(String path) {
         Mat m = new Mat(IMAGE_HEIGHT, IMAGE_WIDTH, CvType.CV_8UC1);
         try {
+            File dir = context.getFilesDir();
+            File imageFile = new File(dir, path);
             FileInputStream imageFis = context.openFileInput(path);
-            byte[] buffer = new byte[1024];
-            StringBuilder sb = new StringBuilder();
-            int length;
-            while ((length = imageFis.read(buffer)) != -1) {
-                sb.append(new String(buffer, 0, length));
-            }
-            byte[] fileContents = sb.toString().getBytes();
+            byte[] buffer = new byte[(int) imageFile.length()];
+            imageFis.read(buffer);
             imageFis.close();
-            m.put(0, 0, fileContents);
+            m.put(0, 0, buffer);
         } catch (java.io.IOException e) {
             e.printStackTrace();
         }
@@ -154,11 +152,11 @@ public class ClassifierDatabase {
     }
 
     private void writeImageFile(String path, Mat image) {
-        byte[] imageBytes = new byte[(int) (image.total() * image.channels())];
-        image.get(0, 0, imageBytes);
+        byte[] buffer = new byte[(int) (image.total() * image.channels())];
+        image.get(0, 0, buffer);
         try {
             FileOutputStream imageFos = context.openFileOutput(path, Context.MODE_PRIVATE);
-            imageFos.write(imageBytes);
+            imageFos.write(buffer);
             imageFos.close();
         } catch (java.io.IOException e) {
             e.printStackTrace();
