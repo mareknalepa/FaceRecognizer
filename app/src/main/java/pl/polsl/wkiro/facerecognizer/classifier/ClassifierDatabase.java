@@ -24,6 +24,10 @@ public class ClassifierDatabase {
     public final static int IMAGE_WIDTH = 256;
     public final static int IMAGE_HEIGHT = 256;
 
+    public final static String IMAGES_LIST_FILE = "faces_list";
+    public final static String MODEL_FILE = "face_recognizer_model";
+    public final static String LABELS_FILE = "face_recognizer_labels";
+
     private Context context;
     private List<String> labels;
     private List<Mat> images;
@@ -39,7 +43,7 @@ public class ClassifierDatabase {
         images.clear();
         FileInputStream fis;
         try {
-            fis = context.openFileInput("faces_list");
+            fis = context.openFileInput(IMAGES_LIST_FILE);
             BufferedReader br = new BufferedReader(new InputStreamReader(fis));
             String line = br.readLine();
             while (line != null) {
@@ -66,7 +70,7 @@ public class ClassifierDatabase {
         images.add(image);
         FileOutputStream fos;
         try {
-            fos = context.openFileOutput("faces_list", Context.MODE_APPEND);
+            fos = context.openFileOutput(IMAGES_LIST_FILE, Context.MODE_APPEND);
             DateFormat df = new SimpleDateFormat("yyyyMMddHHmmssSSS");
             Date date = new Date();
             String path = df.format(date);
@@ -76,6 +80,7 @@ public class ClassifierDatabase {
             writeImageFile(path, image);
             String contents = label + ";" + path + System.getProperty("line.separator");
             fos.write(contents.getBytes());
+            fos.close();
         } catch (java.io.IOException e) {
             e.printStackTrace();
         }
@@ -92,7 +97,7 @@ public class ClassifierDatabase {
     public void deleteExamples() {
         String[] files = context.fileList();
         for (String path : files) {
-            if (!path.equals("face_recognizer_model")) {
+            if (!path.equals(MODEL_FILE) && !path.equals(LABELS_FILE)) {
                 context.deleteFile(path);
             }
         }
@@ -114,7 +119,7 @@ public class ClassifierDatabase {
     public boolean isTrained() {
         String[] files = context.fileList();
         for (String path : files) {
-            if (path.equals("face_recognizer_model")) {
+            if (path.equals(MODEL_FILE)) {
                 return true;
             }
         }

@@ -129,5 +129,6 @@ public class TrainerActivity extends CameraPreviewActivity {
         }
         FaceClassifier faceClassifier = new FaceClassifier(this);
         faceClassifier.trainClassifier(classifierDatabase);
+        faceClassifier.loadClassifier();
     }
 }
