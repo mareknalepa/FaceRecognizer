@@ -8,6 +8,7 @@ Development requirements:
 3.  OpenCV4Android SDK 2.4.11
 
 To build application it is necessary to adjust some paths in configuration files:
+
 1.  local.properties
 
         ndk.dir=/path/to/ndk-bundle
